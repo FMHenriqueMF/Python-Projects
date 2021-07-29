@@ -8,3 +8,6 @@ the third one has a medium shoot rate but every time he shoot, he can have the s
 
 The first version, all the arrows go to a limit in the x axis. 
 The V2 version, all the arrows go to random spot in the radius target.
+
+
+Both versions use Python as main language and use the Turtle library 
