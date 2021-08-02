@@ -1,0 +1,40 @@
+import re, pyperclip
+
+### --- Create a regex for phone numbers --- ###
+phoneRegex = re.compile(r'''
+(
+((\d\d\d)|(\(\d\d\d\)) )
+(\s|-)
+\d\d\d
+-
+\d\d\d\d
+(((ext(\.)?\s)|x)(\d{2,5}) )
+?)''',re.VERBOSE)
+### --- Create a regex for e-mail addresses --- ###
+emailRegex = re.compile(r'''
+                    # some.+_thing@something.com
+[a-zA-Z0-9_.+]+     #name part
+@                   #@symbol
+[a-zA-Z0-9_.+]+     #domain part 
+
+''', re.VERBOSE)
+
+### --- Get the text off the clipboard --- ###
+text = pyperclip.paste()
+
+### --- Extract the email/phone from this text --- ####
+extractedPhone = phoneRegex.findall(text)
+extractedEmail = emailRegex.findall(text)
+
+allPhoneNumbers = []
+for phoneNumber in extractedPhone:
+    allPhoneNumbers.append(phoneNumber[0])
+results = []
+for each in range(len(allPhoneNumbers)):
+    phon = (allPhoneNumbers[each])
+    results.append(phon + ' ' + extractedEmail[each])
+results2 = '\n'.join(results)
+
+results1 = '\n'.join(allPhoneNumbers) + '\n' +'\n'.join(extractedEmail)
+
+pyperclip.copy(results2)
